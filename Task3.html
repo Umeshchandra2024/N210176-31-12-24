@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Text Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .editor-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #editor {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .instructions {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .key {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #e9ecef;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="instructions">
+            <p>Keyboard shortcuts:</p>
+            <p><span class="key">R</span> - Change text color to red</p>
+            <p><span class="key">B</span> - Change text color to blue</p>
+        </div>
+        
+        <textarea id="editor" placeholder="Start typing here..."></textarea>
+        
+        <div class="status-bar">
+            <div id="currentColor">Current Color: <span style="color: black">Black</span></div>
+            <div id="charCount">Characters: 0</div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const editor = document.getElementById('editor');
+        const charCount = document.getElementById('charCount');
+        const currentColor = document.getElementById('currentColor');
+
+        // Initialize variables
+        let currentTextColor = 'black';
+
+        // Function to update character count
+        function updateCharCount() {
+            const count = editor.value.length;
+            charCount.textContent = `Characters: ${count}`;
+        }
+
+        // Function to update text color
+        function updateTextColor(color) {
+            editor.style.color = color;
+            currentTextColor = color;
+            currentColor.innerHTML = `Current Color: <span style="color: ${color}">${color.charAt(0).toUpperCase() + color.slice(1)}</span>`;
+        }
+
+        // Event listener for keyboard events
+        document.addEventListener('keydown', (event) => {
+            // Ignore key events when user is holding down modifier keys
+            if (event.ctrlKey || event.altKey || event.metaKey) return;
+
+            switch(event.key.toLowerCase()) {
+                case 'r':
+                    updateTextColor('red');
+                    break;
+                case 'b':
+                    updateTextColor('blue');
+                    break;
+            }
+        });
+
+        // Event listener for text changes
+        editor.addEventListener('input', updateCharCount);
+
+        // Initial color setting
+        updateTextColor(currentTextColor);
+    </script>
+</body>
+</html>
