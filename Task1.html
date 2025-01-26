@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop-up Boxes Demo</title>
+    <style>
+        /* Default light mode styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        #greeting {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #theme-status {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div id="greeting"></div>
+    <div id="theme-status"></div>
+
+    <script>
+        // Function to handle the initial page load interactions
+        window.onload = function() {
+            // Show alert when page loads
+            alert('Welcome to our website!');
+
+            // Prompt for user's name
+            let userName = prompt('Please enter your name:', '');
+            
+            // Validate user input
+            userName = userName?.trim() || 'Guest';
+
+            // Display personalized greeting
+            const greetingElement = document.getElementById('greeting');
+            greetingElement.textContent = `Hello, ${userName}!`;
+
+            // Ask about dark mode preference
+            const enableDarkMode = confirm('Would you like to enable dark mode?');
+            
+            // Apply theme based on user preference
+            const body = document.body;
+            const themeStatus = document.getElementById('theme-status');
+            
+            if (enableDarkMode) {
+                body.classList.add('dark-mode');
+                themeStatus.textContent = 'Dark mode is enabled';
+            } else {
+                themeStatus.textContent = 'Light mode is enabled';
+            }
+        };
+    </script>
+</body>
+</html>
